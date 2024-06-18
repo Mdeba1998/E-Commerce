@@ -1,0 +1,63 @@
+<body>
+	<div th:replace="navbar.html"></div>
+	<div class="container">
+		<h1>Your Orders</h1>
+		<div th:each="cart : ${carts}">
+			<!-- Check if the cart is not empty -->
+			<div
+				th:if="${#lists.size(cart.mensDress) + #lists.size(cart.womensDress) + #lists.size(cart.kidsDress) > 0}">
+				<!-- Men's Dresses -->
+				<table>
+					<tr>
+						<th>Image</th>
+						<th>Name</th>
+						<th>Description</th>
+						<th>Order Status</th>
+						<th>Price</th>
+					</tr>
+					<div th:if="${#lists.size(cart.mensDress) > 0}" class="cart-category" data-category="mens">
+
+
+						<tr th:each="dress : ${cart.mensDress}">
+							<td><img th:src="@{/mens/image/{id}(id=${dress.id})}" alt="Image" class="cart-image"></td>
+							<td th:text="${dress.name}">Dress Name</td>
+							<td th:text="${dress.description}">Dress Description</td>
+							<td class="cart-status"
+								th:text="${cart.orderStatus != null ? cart.orderStatus : 'No Status'}">Order Status</td>
+							<td class="cart-price" th:text="${dress.price}">Dress Price</td>
+						</tr>
+
+					</div>
+
+					<!-- Women's Dresses -->
+					<div th:if="${#lists.size(cart.womensDress) > 0}" class="cart-category" data-category="womens">
+
+						<tr th:each="dress : ${cart.womensDress}">
+							<td><img th:src="@{/womens/image/{id}(id=${dress.id})}" alt="Image" class="cart-image"></td>
+							<td th:text="${dress.name}">Dress Name</td>
+							<td th:text="${dress.description}">Dress Description</td>
+							<td class="cart-status"
+								th:text="${cart.orderStatus != null ? cart.orderStatus : 'No Status'}">
+								Order Status</td>
+							<td class="cart-price" th:text="${dress.price}">Dress Price</td>
+						</tr>
+				</table>
+			</div>
+
+			<!-- Kids' Dresses -->
+			<div th:if="${#lists.size(cart.kidsDress) > 0}" class="cart-category" data-category="kids">
+
+				<tr th:each="dress : ${cart.kidsDress}">
+					<td><img th:src="@{/kids/image/{id}(id=${dress.id})}" alt="Image" class="cart-image"></td>
+					<td th:text="${dress.name}">Dress Name</td>
+					<td th:text="${dress.description}">Dress Description</td>
+					<td class="cart-status" th:text="${cart.orderStatus != null ? cart.orderStatus : 'No Status'}">
+						Order Status</td>
+					<td class="cart-price" th:text="${dress.price}">Dress Price</td>
+				</tr>
+				</table>
+			</div>
+		</div>
+	</div>
+	</div>
+</body>
